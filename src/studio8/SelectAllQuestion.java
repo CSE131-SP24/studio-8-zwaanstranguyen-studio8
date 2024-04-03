@@ -1,15 +1,15 @@
 package studio8;
 
 public class SelectAllQuestion extends MultipleChoiceQuestion {
-
+	
+	private int points;
+	
 	public SelectAllQuestion(String prompt, String answer, String[] choices) {
-		//Hint: 1 point per choice
-		//FIXME
+		super(prompt, answer, choices.length, choices);
 	}
 	
 	public int checkAnswer(String givenAnswer) {
-		//FIXME Should return partial credit (if earned)!
-		return 0;
+		return (super.getPoints() - findMissingCorrectAnswers(givenAnswer) - findIncorrectGivenAnswers(givenAnswer));
 	}
 
 	private int findMissingCorrectAnswers(String givenAnswer) {
@@ -26,13 +26,6 @@ public class SelectAllQuestion extends MultipleChoiceQuestion {
 		return incorrectValues;
 	}
 
-	/*
-	 * Returns the number of characters in toCheck that are missing from the
-	 * baseString. For example findMissingValues("hi", "hoi") would return 1,
-	 * 'o' is not in the baseString.
-	 * 
-	 * This method is marked static as it does not depend upon any instance variables
-	 */
 	private static int findMissingCharacters(String baseString, String toCheck) {
 		int missingValues = 0;
 		for(int i = 0; i < toCheck.length(); i++) {
